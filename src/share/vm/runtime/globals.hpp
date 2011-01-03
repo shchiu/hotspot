@@ -59,6 +59,10 @@ define_pd_global(uintx,PermSize,    ScaleForWordSize(4*M));
 define_pd_global(uintx,MaxPermSize, ScaleForWordSize(64*M));
 define_pd_global(bool, NeverActAsServerClassMachine, true);
 define_pd_global(uint64_t,MaxRAM,                    1ULL*G);
+
+//a new folag for XMixedCode
+define_pd_global(bool, MixedCode,                     false);
+
 #define CI_COMPILER_COUNT 0
 #else
 
@@ -3528,6 +3532,9 @@ class CommandLineFlags {
   diagnostic(bool, PrintDTraceDOF, false,                                   \
              "Print the DTrace DOF passed to the system for JSDT probes")   \
                                                                             \
+  product_pd(bool, MixedCode,                                               \
+          "A Mixed code(This is for MixedCode.)")                                                   \
+																																						\
   product(bool, UseVMInterruptibleIO, false,                                \
           "(Unstable, Solaris-specific) Thread interrupt before or with "   \
           "EINTR for I/O operations results in OS_INTRPT. The default value"\

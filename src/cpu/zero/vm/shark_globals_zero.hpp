@@ -60,3 +60,5 @@ define_pd_global(uintx,    MaxPermSize,                  64*M );
 define_pd_global(bool,     NeverActAsServerClassMachine, true );
 define_pd_global(uint64_t,MaxRAM,                    1ULL*G);
 define_pd_global(bool,     CICompileOSR,                 true );
+//add a new flag for XMixedCode
+define_pd_global(bool,		MixedCode,										 false);

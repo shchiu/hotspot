@@ -2048,6 +2048,9 @@ jint Arguments::parse_each_vm_init_arg(const JavaVMInitArgs* args,
     // -Xbatch
     } else if (match_option(option, "-Xbatch", &tail)) {
       FLAG_SET_CMDLINE(bool, BackgroundCompilation, false);
+    // -XMixedCode
+    } else if (match_option(option, "-XMixedCode", &tail)) {
+      FLAG_SET_CMDLINE(bool, MixedCode, true);
     // -Xmn for compatibility with other JVM vendors
     } else if (match_option(option, "-Xmn", &tail)) {
       julong long_initial_eden_size = 0;

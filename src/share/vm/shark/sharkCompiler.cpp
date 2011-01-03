@@ -87,8 +87,35 @@ SharkCompiler::SharkCompiler()
   cl::ParseCommandLineOptions(args.size() - 1, (char **) &args[0]);
 
   // Create the JIT
-  std::string ErrorMsg;
+	
+	std::string ErrorMsg;
 
+	//This is for new option -XMixedCode.
+	if( MixedCode )
+	{
+
+		printf("set MArch to x86\n");
+		EngineBuilder builder(_normal_context->module());
+		builder.setMArch("x86");
+		builder.setJITMemoryManager(memory_manager());
+		builder.setEngineKind(EngineKind::JIT);
+		builder.setErrorStr(&ErrorMsg);
+		_execution_engine = builder.create();
+	}
+	else {
+		// original
+		printf("set MArch to x86-64\n");
+		EngineBuilder builder(_normal_context->module());
+		builder.setMCPU(MCPU);
+		builder.setMAttrs(MAttrs);
+		builder.setJITMemoryManager(memory_manager());
+		builder.setEngineKind(EngineKind::JIT);
+		builder.setErrorStr(&ErrorMsg);
+		_execution_engine = builder.create();
+
+	}
+
+/*
   EngineBuilder builder(_normal_context->module());
   builder.setMCPU(MCPU);
   builder.setMAttrs(MAttrs);
@@ -96,6 +123,7 @@ SharkCompiler::SharkCompiler()
   builder.setEngineKind(EngineKind::JIT);
   builder.setErrorStr(&ErrorMsg);
   _execution_engine = builder.create();
+*/
 
   if (!execution_engine()) {
     if (!ErrorMsg.empty())
