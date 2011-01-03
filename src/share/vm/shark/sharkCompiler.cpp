@@ -211,6 +211,7 @@ void SharkCompiler::compile_method(ciEnv*    env,
   ExceptionHandlerTable handler_table;
   ImplicitExceptionTable inc_table;
 
+	fprintf(stderr, "register method, hscb:%p, shark cb:%p\n", &hscb, &cb);
   env->register_method(target,
                        entry_bci,
                        &offsets,

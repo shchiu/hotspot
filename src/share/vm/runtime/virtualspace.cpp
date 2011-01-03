@@ -45,6 +45,14 @@ ReservedSpace::ReservedSpace(size_t size, size_t alignment,
   initialize(size, alignment, large, NULL, 0, executable);
 }
 
+//a new ReservedSpace constructor for limiting address space less than 4G.
+ReservedSpace::ReservedSpace(size_t size, size_t alignment,
+														bool large,
+														char* requested_address,
+														bool executable) {
+	initialize(size, alignment, large, requested_address, 0, executable);
+}
+
 char *
 ReservedSpace::align_reserved_region(char* addr, const size_t len,
                                      const size_t prefix_size,
@@ -415,6 +423,14 @@ ReservedCodeSpace::ReservedCodeSpace(size_t r_size,
                                      size_t rs_align,
                                      bool large) :
   ReservedSpace(r_size, rs_align, large, /*executable*/ true) {
+}
+
+// for limiting address space less than 4G.
+ReservedCodeSpace::ReservedCodeSpace(size_t r_size,
+																		size_t rs_align,
+																		bool large,
+																		char* requested_address) :
+	ReservedSpace(r_size, rs_align, large, requested_address, /*executable*/ true) {
 }
 
 // VirtualSpace
