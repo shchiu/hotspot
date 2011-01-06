@@ -25,6 +25,7 @@
 
 #include "incls/_precompiled.incl"
 #include "incls/_sharkCompiler.cpp.incl"
+#include "myjitmemorymanager.h"
 
 #include <fnmatch.h>
 
@@ -211,7 +212,6 @@ void SharkCompiler::compile_method(ciEnv*    env,
   ExceptionHandlerTable handler_table;
   ImplicitExceptionTable inc_table;
 
-	fprintf(stderr, "register method, hscb:%p, shark cb:%p\n", &hscb, &cb);
   env->register_method(target,
                        entry_bci,
                        &offsets,
@@ -313,6 +313,8 @@ void SharkCompiler::generate_native_code(SharkEntry* entry,
   // Register generated code for profiling, etc
   if (JvmtiExport::should_post_dynamic_code_generated())
     JvmtiExport::post_dynamic_code_generated(name, code_start, code_limit);
+
+	printf(" [%p-%p): %s (%d bytes code)\n", code_start, code_limit, name, code_limit - code_start);
 
   // Print debug information, if requested
   if (SharkTraceInstalls) {
