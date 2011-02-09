@@ -605,8 +605,8 @@ sys::MemoryBlock MyJITMemoryManager::allocateNewSlab(size_t size) {
 
 sys::MemoryBlock MyJITMemoryManager::allocateNewMemoryRWX(size_t size) {
 
-        void* temp_base = mmap(0, size, PROT_EXEC|PROT_READ|PROT_WRITE, MAP_SHARED|MAP_32BIT|MAP_ANONYMOUS, 0, 0);
-        size_t temp_size = size;
+        void* temp_base = mmap(0, size, PROT_EXEC|PROT_READ|PROT_WRITE, MAP_32BIT|MAP_SHARED|MAP_ANONYMOUS , 0, 0);
+		size_t temp_size = size;
         return sys::MemoryBlock(temp_base, temp_size);
 }
 
